@@ -70,4 +70,10 @@ class User extends Authenticatable
             "resource_id"
         );
     }
+
+    // functions
+    public function isRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
 }

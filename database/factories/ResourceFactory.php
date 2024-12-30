@@ -3,26 +3,23 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\File;
-use App\Models\Lesson;
-use App\Models\Unit;
 
 class ResourceFactory extends Factory
 {
     public function definition(): array
     {
-        $models = [
-            File::class,
-            Lesson::class,
-            Unit::class,
+        $morphTypes = [
+            'file' => \App\Models\File::class,
+            'unit' => \App\Models\Unit::class,
+            'lesson' => \App\Models\Lesson::class,
         ];
 
-        $resourceableType = $this->faker->randomElement($models);
-        $resourceableId = $resourceableType::query()->inRandomOrder()->first()->id;
+        $morphType = $this->faker->randomElement(array_keys($morphTypes));
 
         return [
-            'resourceable_type' => $resourceableType,
-            'resourceable_id' => $resourceableId,
+            'resourceable_type' => $morphType, // Key from the morph map
+            'resourceable_id' => $morphTypes[$morphType]::query()->inRandomOrder()->value('id') ?: 1, // Random ID
         ];
     }
+
 }

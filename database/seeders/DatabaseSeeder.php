@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Models\Lesson;
 use App\Models\Resource;
 use App\Models\Transaction;
+use App\Models\TransactionItems;
 use App\Models\Unit;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -36,6 +37,24 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Cart::factory()->count(10)->create();
-        Transaction::factory()->count(100)->create();
+        Transaction::factory()->count(500)->create();
+
+        foreach (Transaction::all() as $transaction) {
+            $id1 = Resource::inRandomOrder()->first()->id;
+
+            TransactionItems::factory()->count(1)->create([
+                "transaction_id" => $transaction->id,
+                "resource_id" => $id1
+            ]);
+
+            do {
+                $id2 = Resource::inRandomOrder()->first()->id;
+            } while ($id1 == $id2);
+
+            TransactionItems::factory()->count(1)->create([
+                "transaction_id" => $transaction->id,
+                "resource_id" => $id2
+            ]);
+        }
     }
 }

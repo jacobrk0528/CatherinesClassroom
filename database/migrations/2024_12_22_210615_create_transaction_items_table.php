@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId("transaction_id")->constrained("transactions", "id")->onDelete("cascade");
             $table->foreignId("resource_id")->constrained("resources", "id")->onDelete("cascade");
             $table->timestamps();
+
+            $table->unique(['transaction_id', 'resource_id'], 'transaction_resource_unique');
         });
     }
 

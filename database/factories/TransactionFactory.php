@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,11 +26,22 @@ class TransactionFactory extends Factory
 
         $user = $users->random();
 
+        $daysDiff = $this->faker->randomNumber(1);
+        $sign = $this->faker->randomElement([-1, 1]);
+        $days = $daysDiff * $sign;
+
+        $randomTime = $this->faker->time('H:i:s'); // Generates a random time in 'HH:MM:SS' format
+
+        $randomDateTime = Carbon::now()
+            ->addDays($days)
+            ->setTimeFromTimeString($randomTime);
 
         return [
             "user_id" => $user->id,
             "transaction_status" => $this->faker->randomElement(["pending", "completed", "failed"]),
-            "transaction_amount" => $this->faker->randomFloat(2, 10, 1000)
+            "transaction_amount" => $this->faker->randomFloat(2, 10, 1000),
+            "created_at" => $randomDateTime,
+            "updated_at" => $randomDateTime,
         ];
     }
 }
