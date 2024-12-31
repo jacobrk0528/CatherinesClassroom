@@ -11,10 +11,6 @@ export default {
             type: Array,
             required: true,
         },
-        title: {
-            type: String,
-            required: true,
-        },
     },
     mounted() {
         const ctx = document.getElementById("myChart").getContext("2d");
@@ -25,7 +21,7 @@ export default {
                 labels: this.data.map((item) => `${item.hour}:00`),
                 datasets: [
                     {
-                        label: this.title,
+                        label: "Orders",
                         backgroundColor: "#42A5F5",
                         borderColor: "#1E88E5",
                         data: this.data.map((item) => item.order_count),
@@ -36,7 +32,7 @@ export default {
                 responsive: true,
                 plugins: {
                     legend: {
-                        display: false,
+                        display: true,
                     },
                 },
                 scales: {

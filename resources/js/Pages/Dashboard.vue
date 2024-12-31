@@ -59,7 +59,7 @@ const viewOrder = (id) => {
                     <!-- Graph  -->
                     <div class="w-full flex justify-center">
                         <div class="w-11/12 h-full p-4 my-4">
-                            <Graph :data="hourlyOrders" title="Orders Per Hour" />
+                            <Graph :data="hourlyOrders" />
                         </div>
                     </div>
 

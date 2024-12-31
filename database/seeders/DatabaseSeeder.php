@@ -2,14 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Campaign;
 use App\Models\Cart;
 use App\Models\File;
 use App\Models\Lesson;
+use App\Models\Medium;
 use App\Models\Resource;
+use App\Models\Source;
 use App\Models\Transaction;
 use App\Models\TransactionItems;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Visitor;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -56,5 +60,10 @@ class DatabaseSeeder extends Seeder
                 "resource_id" => $id2
             ]);
         }
+
+        Campaign::factory()->count(100)->create();
+        Source::factory()->count(50)->create();
+        Medium::factory()->count(25)->create();
+        Visitor::factory()->count(1000)->create();
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Transaction extends Model
 {
@@ -52,6 +53,18 @@ class Transaction extends Model
             "id",
             "id",
             "resource_id"
+        );
+    }
+
+    public function visitor(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            Visitor::class,
+            VisitorTransaction::class,
+            'transaction_id',
+            "id",
+            "id",
+            "visitor_id"
         );
     }
 
