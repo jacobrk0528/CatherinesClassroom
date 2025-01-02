@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("cart_id")->constrained("carts", "id")->onDelete("cascade");
             $table->foreignId("resource_id")->constrained("resources", "id")->onDelete("cascade");
+            $table->integer("quantity")->default(1);
             $table->timestamps();
         });
     }

@@ -41,4 +41,14 @@ class File extends Model
     {
         return $this->morphMany(Resource::class, "resourceable");
     }
+
+    public function getNameAttribute(): String
+    {
+        return $this->file_name;
+    }
+
+    public function getPriceAttribute(): String
+    {
+        return $this->file_price;
+    }
 }
