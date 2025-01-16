@@ -39,4 +39,14 @@ class Unit extends Model
     {
         return $this->morphMany(Resource::class, "resourceable");
     }
+
+    public function getNameAttribute(): String
+    {
+        return $this->unit_name;
+    }
+
+    public function getPriceAttribute(): String
+    {
+        return $this->unit_price;
+    }
 }

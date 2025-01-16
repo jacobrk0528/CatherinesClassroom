@@ -2,12 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cart>
- */
 class CartFactory extends Factory
 {
     /**
@@ -30,3 +27,4 @@ class CartFactory extends Factory
         ];
     }
 }
+

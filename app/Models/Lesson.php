@@ -51,4 +51,14 @@ class Lesson extends Model
     {
         return $this->morphMany(Resource::class, "resourceable");
     }
+
+    public function getNameAttribute(): String
+    {
+        return $this->lesson_name;
+    }
+
+    public function getPriceAttribute(): String
+    {
+        return $this->lesson_price;
+    }
 }

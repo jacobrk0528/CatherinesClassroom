@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Campaign;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\File;
 use App\Models\Lesson;
 use App\Models\Medium;
@@ -36,11 +37,29 @@ class DatabaseSeeder extends Seeder
         Unit::factory()->count(10)->create();
         Resource::factory()->count(50)->create();
 
-        Cart::factory()->create([
+        $cart = Cart::factory()->create([
             "user_id" => $user->id
         ]);
 
-        Cart::factory()->count(10)->create();
+        $resourceIDs = Resource::inRandomOrder()->take(5)->pluck('id');
+        foreach ($resourceIDs as $resourceID) {
+            CartItem::factory()->create([
+                'cart_id' => $cart->id,
+                'resource_id' => $resourceID,
+            ]);
+        }
+
+        Cart::factory()->count(10)->create()->each(function ($cart) {
+            $resourceIDs = Resource::inRandomOrder()->take(5)->pluck('id');
+
+            foreach ($resourceIDs as $resourceID) {
+                CartItem::factory()->create([
+                    'cart_id' => $cart->id,
+                    'resource_id' => $resourceID,
+                ]);
+            }
+        });
+
         Transaction::factory()->count(500)->create();
 
         foreach (Transaction::all() as $transaction) {
