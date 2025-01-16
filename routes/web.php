@@ -20,9 +20,9 @@ Route::get('/', function () {
 })->name('home');
 
 // checkout
-Route::get('/checkout/{cart}', [PaymentController::class, 'checkout'])->name('checkout');
-Route::get('checkout/success', [PaymentController::class, 'success'])->name('checkout.success');
+Route::get('checkout/success/{transaction}', [PaymentController::class, 'success'])->name('checkout.success');
 Route::get('checkout/cancel', [PaymentController::class, 'cancel'])->name('checkout.cancel');
+Route::get('/checkout/{cart}', [PaymentController::class, 'checkout'])->name('checkout');
 
 // required auth
 Route::middleware('auth')->group(function () {
