@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Medium;
 use App\Models\Source;
 use App\Models\Visitor;
+use App\Models\VisitorTransaction;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -60,14 +61,12 @@ class EntryVisitorTracking
     public function handle(Request $request, Closure $next): Response
     {
         $trackingID = $request->cookie("visitor_id", $this->generateUUID());
-        if (!$request->cookie("visitor_id")) {
-            Cookie::queue("visitor_id", $trackingID, 60 * 24); // 24 hour expire time
-        }
+        Cookie::queue("visitor_id", $trackingID, 60 * 24); // 24 hour expire time
 
         if ($request->isMethod('get')) {
             $attribution = $this->getAttribution($request);
 
-            Visitor::firstOrCreate(
+            $visitor = Visitor::firstOrCreate(
                 ["visitor_id" => $trackingID],
                 [
                     "campaign_id" => $attribution["campaign"],
@@ -78,6 +77,15 @@ class EntryVisitorTracking
                     "user_agent" => $request->userAgent()
                 ]
             );
+
+            if ($request->routeIs("checkout.success")) {
+                $transaction = $request->route("transaction");
+
+                VisitorTransaction::firstOrCreate([
+                    "visitor_id" => $visitor->id,
+                    "transaction_id" => $transaction->id,
+                ]);
+            }
         }
 
         return $next($request);

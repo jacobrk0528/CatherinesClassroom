@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import ApplicationLayout from '@/Layouts/ApplicationLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 import DataOverview from '@/Components/DataOverview.vue';
@@ -31,7 +31,7 @@ const viewOrder = (id) => {
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <ApplicationLayout>
         <template #header>
             <h2
                 class="text-xl font-semibold leading-tight text-gray-800"
@@ -98,5 +98,5 @@ const viewOrder = (id) => {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </ApplicationLayout>
 </template>
