@@ -7,12 +7,17 @@ use Inertia\Inertia;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ContactController;
 
 use App\Http\Middleware\CheckAdmin;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
+
+// contact me
+Route::get('/contact-me', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact-me', [ContactController::class, 'submit'])->name('contact.submit');
 
 // checkout
 Route::get('checkout/success/{transaction}', [PaymentController::class, 'success'])->name('checkout.success');
