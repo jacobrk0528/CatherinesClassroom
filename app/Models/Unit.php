@@ -22,7 +22,18 @@ class Unit extends Model
         "updated_at" => "datetime"
     ];
 
+    protected $appends = [
+        'name',
+        'price',
+        'lesson_count',
+    ];
+
     // Relationships
+    /**
+    * Define Lessons relationship
+    *
+    * @return HasManyThrough
+    */
     public function lessons(): HasManyThrough
     {
         return $this->hasManyThrough(
@@ -35,6 +46,11 @@ class Unit extends Model
         );
     }
 
+    /**
+    * Define resource relationship
+    *
+    * @return MorphMany
+    */
     public function resources(): MorphMany
     {
         return $this->morphMany(Resource::class, "resourceable");
@@ -48,5 +64,10 @@ class Unit extends Model
     public function getPriceAttribute(): String
     {
         return $this->unit_price;
+    }
+
+    public function getLessonCountAttribute(): int
+    {
+        return count($this->lessons);
     }
 }
