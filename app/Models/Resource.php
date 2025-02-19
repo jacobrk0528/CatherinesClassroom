@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Resource extends Model
 {
@@ -13,31 +14,54 @@ class Resource extends Model
     use HasFactory;
 
     protected $fillable = [
-        "resourceable_id",
-        "resourceable_type"
+        "name",
+        "description",
+        "type",
+        "path",
+        "parent_id",
+        "mime_type",
+        "price"
     ];
 
-    protected $casts = [
-        "created_at" => "datetime",
-        "updated_at" => "datetime"
-    ];
-
-    protected static function boot(): void
+    protected function casts(): array
     {
-        parent::boot();
-        Relation::enforceMorphMap([
-            'file' => \App\Models\File::class,
-            'unit' => \App\Models\Unit::class,
-            'lesson' => \App\Models\Lesson::class,
-        ]);
+        return [
+            "created_at" => "datetime",
+            "updated_at" => "datetime",
+        ];
     }
 
-
-
-    // Relationships
-    public function resourceable(): MorphTo
+    /**
+     * Parent-Child Relationship (For Nested Folders & Files)
+     */
+    public function parent(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(Resource::class, 'parent_id');
     }
 
+    public function children(): HasMany
+    {
+        return $this->hasMany(Resource::class, 'parent_id');
+    }
+
+    /**
+     * Get only files (excluding folders)
+     */
+    public function files(): HasMany
+    {
+        return $this->hasMany(Resource::class, 'parent_id')->where('mime_type', '!=', 'Folder');
+    }
+
+    /**
+     * Get only folders (excluding files)
+     */
+    public function folders(): HasMany
+    {
+        return $this->hasMany(Resource::class, 'parent_id')->where('mime_type', 'Folder');
+    }
+
+    public function scopeUnits(Builder $query): Builder
+    {
+        return $query->where("parent_id", null)->where("type", "unit");
+    }
 }

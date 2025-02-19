@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('transaction_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId("transaction_id")->constrained("transactions", "id")->onDelete("cascade");
-            $table->foreignId("resource_id")->constrained("resources", "id")->onDelete("cascade");
+            /* $table->foreignId("resource_id")->constrained("resources", "id")->onDelete("cascade"); */
             $table->timestamps();
 
-            $table->unique(['transaction_id', 'resource_id'], 'transaction_resource_unique');
+            /* $table->unique(['transaction_id', 'resource_id'], 'transaction_resource_unique'); */
         });
     }
 

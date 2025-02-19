@@ -7,41 +7,47 @@ import SecondaryButton from '@/Components/SecondaryButton.vue'
 
 const props = defineProps({
     unit: Object,
+    lesson: Object,
+    file: Object,
 });
 
 const form = useForm({
-    name: props.unit?.name || "",
-    price: props.unit?.price || "",
+    name: props.lesson?.name || "",
+    price: props.lesson?.price || 0,
+    file: null
 });
 
 const submitForm = () => {
-    form.put(route("units.update", props.unit.id));
+    form.post(route("units.lessons.files.store", { unit: props.unit.id, lesson: props.lesson.id }), {
+        forceFormData: true
+    });
 };
 
 function back() {
-    router.get(route("units.index"));
+    router.get(route("units.lessons.files.index", { unit: props.unit.id, lesson: props.lesson.id }));
 }
 </script>
 
+
 <template>
 
-    <Head title="Edit Unit" />
+    <Head title="Create Lesson" />
 
     <ApplicationLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Edit Unit
+                Edit File
             </h2>
         </template>
 
         <div class="flex flex-col items-center justify-center min-h-[80vh]">
             <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-lg">
-                <h2 class="text-xl font-semibold mb-4">Edit Unit</h2>
+                <h2 class="text-xl font-semibold mb-4 text-center">Edit a File</h2>
 
                 <form @submit.prevent="submitForm">
                     <!-- Name Field -->
                     <div class="mb-4">
-                        <label for="name" class="block text-gray-700 font-medium mb-1">Unit Name</label>
+                        <label for="name" class="block text-gray-700 font-medium mb-1">File Name</label>
                         <input type="text" id="name" v-model="form.name"
                             class="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-blue-200"
                             required />
@@ -57,10 +63,19 @@ function back() {
                         <p v-if="form.errors.price" class="text-red-500 text-sm mt-1">{{ form.errors.price }}</p>
                     </div>
 
+                    <!-- File Field -->
+                    <div class="mb-4">
+                        <label for="file" class="block text-gray-700 font-medium mb-1">File</label>
+                        <input type="file" id="file" @change="handleFileUpload"
+                            class="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-blue-200"
+                            step="0.01" required />
+                        <p v-if="form.errors.file" class="text-red-500 text-sm mt-1">{{ form.errors.file }}</p>
+                    </div>
+
                     <!-- Submit Button -->
                     <div class="flex justify-around">
                         <PrimaryButton type="submit">
-                            Edit Unit
+                            Save File
                         </PrimaryButton>
 
                         <SecondaryButton @click="back">

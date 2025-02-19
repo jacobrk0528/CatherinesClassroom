@@ -19,6 +19,7 @@ namespace App\Models{
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Visitor> $visitors
  * @property-read int|null $visitors_count
  * @method static \Database\Factories\CampaignFactory factory($count = null, $state = [])
@@ -44,6 +45,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CartItem> $cartItems
  * @property-read int|null $cart_items_count
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resource> $resources
  * @property-read int|null $resources_count
  * @property-read \App\Models\User $user
@@ -72,6 +74,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Cart $Cart
  * @property-read \App\Models\Resource $Resource
+ * @property-read \App\Models\TFactory|null $use_factory
  * @method static \Database\Factories\CartItemFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CartItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CartItem newQuery()
@@ -99,6 +102,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string $name
  * @property-read string $price
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lesson> $lessons
  * @property-read int|null $lessons_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resource> $resources
@@ -129,8 +133,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\File> $files
  * @property-read int|null $files_count
+ * @property-read int $file_count
  * @property-read string $name
  * @property-read string $price
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resource> $resources
  * @property-read int|null $resources_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Unit> $units
@@ -161,6 +167,7 @@ namespace App\Models{
  * @property mixed $1
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Unit> $files
  * @property-read int|null $files_count
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lesson> $lessons
  * @property-read int|null $lessons_count
  * @method static \Database\Factories\LessonFileFactory factory($count = null, $state = [])
@@ -184,6 +191,7 @@ namespace App\Models{
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Visitor> $visitors
  * @property-read int|null $visitors_count
  * @method static \Database\Factories\MediumFactory factory($count = null, $state = [])
@@ -207,6 +215,7 @@ namespace App\Models{
  * @property int $resourceable_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $resourceable
  * @method static \Database\Factories\ResourceFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Resource newModelQuery()
@@ -229,6 +238,7 @@ namespace App\Models{
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Visitor> $visitors
  * @property-read int|null $visitors_count
  * @method static \Database\Factories\SourceFactory factory($count = null, $state = [])
@@ -253,6 +263,7 @@ namespace App\Models{
  * @property string $transaction_amount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resource> $resources
  * @property-read int|null $resources_count
  * @property-read \App\Models\User|null $user
@@ -282,6 +293,7 @@ namespace App\Models{
  * @property int $resource_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @method static \Database\Factories\TransactionItemsFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TransactionItems newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TransactionItems newQuery()
@@ -307,6 +319,7 @@ namespace App\Models{
  * @property-read int $lesson_count
  * @property-read string $name
  * @property-read string $price
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lesson> $lessons
  * @property-read int|null $lessons_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resource> $resources
@@ -335,6 +348,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property mixed $0
  * @property mixed $1
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lesson> $lessons
  * @property-read int|null $lessons_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Unit> $units
@@ -367,6 +381,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cart> $carts
  * @property-read int|null $carts_count
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resource> $resources
  * @property-read int|null $resources_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transaction> $transactions
@@ -397,6 +412,7 @@ namespace App\Models{
  * @property int $resource_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @method static \Database\Factories\UserItemFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserItem newQuery()
@@ -427,6 +443,7 @@ namespace App\Models{
  * @property-read \App\Models\Campaign|null $campaign
  * @property-read string $referrer
  * @property-read string $url
+ * @property-read \App\Models\TFactory|null $use_factory
  * @property-read \App\Models\Medium|null $medium
  * @property-read \App\Models\Source|null $source
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Transaction> $transactions
@@ -458,6 +475,7 @@ namespace App\Models{
  * @property int $transaction_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TFactory|null $use_factory
  * @method static \Database\Factories\VisitorTransactionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|VisitorTransaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|VisitorTransaction newQuery()

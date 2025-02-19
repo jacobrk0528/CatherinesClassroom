@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,16 +41,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(["auth", "verified", CheckAdmin::class])->group(function () {
     Route::get("/dashboard", [DashboardController::class, "show"])->name("dashboard");
 
-    // Units
-    Route::get("/units", [UnitController::class, 'index'])->name('units.index');
-    Route::get("/units/new", [UnitController::class, 'new'])->name('units.new');
-    Route::post("/units/store", [UnitController::class, 'store'])->name('units.store');
-    Route::get("/units/edit/{unit}", [UnitController::class, 'edit'])->name('units.edit');
-    Route::put("/units/update/{unit}", [UnitController::class, 'update'])->name('units.update');
-    Route::delete("/units/destroy/{unit}", [UnitController::class, 'destroy'])->name('units.destroy');
+    // Units Resource Routes
+    Route::resource('units', UnitController::class)->except(['show']);
 
-    // Lessons
-    Route::get("/units/{unit}", [LessonController::class, 'index'])->name('lessons.index');
+    // Lessons as a Nested Resource
+    /* Route::resource('units.lessons', LessonController::class)->except(['show']); */
+
+    // Files as a Nested Resource of lessons
+    /* Route::resource('units.lessons.files', FileController::class)->except(['show']); */
 });
 
 require __DIR__.'/auth.php';

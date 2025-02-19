@@ -7,41 +7,42 @@ import SecondaryButton from '@/Components/SecondaryButton.vue'
 
 const props = defineProps({
     unit: Object,
+    lesson: Object
 });
 
 const form = useForm({
-    name: props.unit?.name || "",
-    price: props.unit?.price || "",
+    name: props.lesson?.name || "",
+    price: props.lesson?.price || 0,
 });
 
 const submitForm = () => {
-    form.put(route("units.update", props.unit.id));
+    form.put(route("units.lessons.update", { "unit": props.unit.id, "lesson": props.lesson.id }));
 };
 
 function back() {
-    router.get(route("units.index"));
+    router.get(route("units.lessons.index", { "unit": props.unit.id }));
 }
 </script>
 
 <template>
 
-    <Head title="Edit Unit" />
+    <Head title="Edit Lesson" />
 
     <ApplicationLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Edit Unit
+                Edit Lesson
             </h2>
         </template>
 
         <div class="flex flex-col items-center justify-center min-h-[80vh]">
             <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-lg">
-                <h2 class="text-xl font-semibold mb-4">Edit Unit</h2>
+                <h2 class="text-xl font-semibold mb-4">Edit Lesson</h2>
 
                 <form @submit.prevent="submitForm">
                     <!-- Name Field -->
                     <div class="mb-4">
-                        <label for="name" class="block text-gray-700 font-medium mb-1">Unit Name</label>
+                        <label for="name" class="block text-gray-700 font-medium mb-1">Lesson Name</label>
                         <input type="text" id="name" v-model="form.name"
                             class="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-blue-200"
                             required />
@@ -60,7 +61,7 @@ function back() {
                     <!-- Submit Button -->
                     <div class="flex justify-around">
                         <PrimaryButton type="submit">
-                            Edit Unit
+                            Edit Lesson
                         </PrimaryButton>
 
                         <SecondaryButton @click="back">
